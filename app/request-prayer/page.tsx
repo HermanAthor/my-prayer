@@ -36,17 +36,55 @@ const page = () => {
 
   const formdata = form.getValues();
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(formdata);
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      const res = await fetch("api/prayers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prayer: data.prayer,
+          user_name: data.user_name,
+          church: data.select_church,
+          isNotAnonymous: true,
+          email: "your_email_here",
+          phoneNumber: "your_phone_number_here",
+          churchId: "id_here",
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to create prayer");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  const handleCreatePrayer = async () => {
+    try {
+      const res = await fetch("api/prayers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prayer: formdata.prayer,
+          user_name: formdata.user_name,
+          church: formdata.select_church,
+          isNotAnonymous: true,
+          email: "your_email_here",
+          phoneNumber: "your_phone_number_here",
+          churchId: "id_here",
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to create prayer");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -107,6 +145,7 @@ const page = () => {
           )}
         />
         <Button type="submit">Let's pray together</Button>
+        {/* <Button onClick={handleCreatePrayer}>try post</Button> */}
       </form>
     </Form>
   );
