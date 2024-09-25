@@ -58,6 +58,22 @@ export default function Home() {
             <Link href="/prayers-to-pray"> continue</Link>
           </CardFooter>
         </Card>
+        <Card>
+          <CardHeader>
+            <h2 className="text-xl font-bold">Prayers to pray together</h2>
+          </CardHeader>
+          <CardContent>
+            <p>
+              If you are new to the platform as a church you can create an
+              account in just 3 minutes and then you can start accepting prayers
+              as a church
+            </p>
+            <p>You need to be a church admin to access this page</p>
+          </CardContent>
+          <CardFooter>
+            <Link href="/register-church"> continue</Link>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

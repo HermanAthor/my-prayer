@@ -10,11 +10,11 @@ type PrayerCardProps = {
 
 const PrayerCard: FC<PrayerCardProps> = ({ prayer, index }) => {
   return (
-    <Card>
+    <Card key={index}>
       <CardHeader>
         <h2 className="text-xl font-bold">{prayer.prayer}</h2>
       </CardHeader>
-      <div className="flex flex-col space-y-3"></div>
+
       <CardFooter className="space-x-3">
         <Button>Approve</Button>
         <Button>Decline</Button>

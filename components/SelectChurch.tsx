@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   FormControl,
   FormDescription,
@@ -20,6 +20,24 @@ type SelectChurchProps = {
 };
 
 const SelectChurch: FC<SelectChurchProps> = ({ field }) => {
+  const [churches, setChurches] = useState([]);
+  useEffect(() => {
+    const getChurches = async () => {
+      try {
+        const res = await fetch("/api/churches");
+        if (!res.ok) {
+          throw new Error("Failed to fetch churches");
+        }
+        if (res.ok) {
+          const json = await res.json();
+          setChurches(json.results);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getChurches();
+  }, []);
   return (
     <FormItem>
       <FormLabel>Choose your church</FormLabel>
@@ -30,9 +48,14 @@ const SelectChurch: FC<SelectChurchProps> = ({ field }) => {
           </SelectTrigger>
         </FormControl>
         <SelectContent>
-          <SelectItem value="COTR">COTR</SelectItem>
-          <SelectItem value="Hillsong">Hillsong</SelectItem>
-          <SelectItem value="Drejervej">Drejevej</SelectItem>
+          {churches.map((church) => {
+            const { churchId, church_name, _id } = church;
+            return (
+              <SelectItem key={_id} value={churchId}>
+                {church_name}
+              </SelectItem>
+            );
+          })}
         </SelectContent>
       </Select>
       <FormDescription>

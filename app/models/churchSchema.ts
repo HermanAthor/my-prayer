@@ -1,11 +1,16 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const churchSchema = new Schema({
-  name: String,
-  id: String,
-  email: String,
-  phone: String,
-  address: String,
-  website: String,
-  prayers: [{ type: Schema.Types.ObjectId, ref: "Prayers" }],
-});
+const churchSchema = new Schema(
+  {
+    church_name: { type: String },
+    churchId: { type: String },
+    email_address: { type: String },
+    phoneNumber: { type: String },
+    address: { type: String },
+    website: { type: String },
+  },
+  { timestamps: true }
+);
+
+export const Churches =
+  mongoose.models.Churches || mongoose.model("Churches", churchSchema);
