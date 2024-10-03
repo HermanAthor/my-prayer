@@ -1,6 +1,7 @@
 import { ApprovedPrayers } from "@/app/models/approvedPrayersSchema";
 import { connectDb } from "./../../db/connectDb";
 import { NextRequest, NextResponse } from "next/server";
+import { Prayers } from "@/app/models/PrayerSchema";
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
@@ -12,6 +13,7 @@ export const POST = async (req: NextRequest) => {
     isNotAnonymous,
     email,
     phoneNumber,
+    _id,
   } = body;
 
   try {
@@ -25,7 +27,8 @@ export const POST = async (req: NextRequest) => {
       email,
       phoneNumber,
     });
-    await newApprovedPrayer.save();
+    await newApprovedPrayer.save(); // Save the prayer to ApprovedPrayer collection
+    await Prayers.findByIdAndDelete(_id); //Delete the prayer from the database
     return NextResponse.json({
       status: 200,
       body: JSON.stringify({ message: "Prayer submitted successfully" }),

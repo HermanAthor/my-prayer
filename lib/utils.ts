@@ -13,7 +13,10 @@ export class PrayerManager {
     this.apiUrl = apiUrl;
   }
 
-  async approvePrayer(prayer: any): Promise<void> {
+  async approvePrayer(
+    prayer: any,
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+  ): Promise<void> {
     try {
       const response = await fetch(`${this.apiUrl}/approved-prayers`, {
         method: "POST",
@@ -26,6 +29,7 @@ export class PrayerManager {
       if (!response.ok) {
         throw new Error("Failed to approve prayer");
       }
+      setState(true);
 
       console.log("Prayer approved successfully!");
     } catch (error) {

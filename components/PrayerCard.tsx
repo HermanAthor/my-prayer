@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client";
+import { FC, useState } from "react";
 import { Card, CardFooter, CardHeader } from "./ui/card";
 import { PrayerObject } from "@/lib/prayerObjectDummyData";
 import { Button } from "./ui/button";
@@ -10,6 +11,7 @@ type PrayerCardProps = {
 };
 
 const PrayerCard: FC<PrayerCardProps> = ({ prayer, index }) => {
+  const [approved, setApproved] = useState(false);
   const prayerManager = new PrayerManager("/api");
   return (
     <Card key={index}>
@@ -18,7 +20,10 @@ const PrayerCard: FC<PrayerCardProps> = ({ prayer, index }) => {
       </CardHeader>
 
       <CardFooter className="space-x-3">
-        <Button onClick={() => prayerManager.approvePrayer(prayer)}>
+        <Button
+          disabled={approved}
+          onClick={() => prayerManager.approvePrayer(prayer, setApproved)}
+        >
           Approve
         </Button>
         <Button>Decline</Button>
