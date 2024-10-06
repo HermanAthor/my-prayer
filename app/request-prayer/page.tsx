@@ -100,27 +100,7 @@ const page = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="user_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Your name {"(optional)"}</FormLabel>
-                <FormControl>
-                  <input
-                    onChange={field.onChange}
-                    defaultValue={field.value}
-                    className="box-border w-full bg-white shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-                  />
-                </FormControl>
-                <FormDescription>
-                  Your name helps us recognize you and pray with you. It's
-                  optional.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <Button type="submit">Let's pray together</Button>
         </form>
       </Form>
